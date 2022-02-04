@@ -1,19 +1,20 @@
 <template>
   <div>
     <div>
-      <div>
+      <!-- <div>
         {{ room && !loaded ? "加载中" : "" }}
-      </div>
+      </div> -->
+      <!-- muted controls  -->
       <video
         id="videoElement"
         ref="videoElement"
-        muted
-        width="100%"
-        height="100%"
+        width="800px"
+        height="600px"
+        controls
       ></video>
-      <button v-if="this.room && this.loaded" @click="swith">
+      <!-- <button v-if="this.room && this.loaded" @click="swith">
         {{ playing ? "暂停" : "播放" }}
-      </button>
+      </button> -->
     </div>
     <Chat v-if="this.room" :room="this.room" />
   </div>
@@ -31,8 +32,6 @@ export default {
   data() {
     return {
       flvPlayer: null,
-      playing: true,
-      loaded: false,
     };
   },
   methods: {
@@ -49,7 +48,6 @@ export default {
         this.flvPlayer = flvjs.createPlayer({
           type: "flv",
           isLive: true,
-          hasAudio: false,
           url,
         });
         this.flvPlayer.on("error", () => {
@@ -57,10 +55,8 @@ export default {
         });
 
         this.flvPlayer.attachMediaElement(videoElement);
-        this.flvPlayer.load();
-        this.flvPlayer.play().then(() => {
-          this.loaded = true;
-        });
+        this.flvPlayer.load(); 
+        this.flvPlayer.play();
       } else {
         alert("不支持播放");
       }
@@ -74,18 +70,20 @@ export default {
         this.flvPlayer = null;
       }
     },
-    swith() {
-      if (this.flvPlayer) {
-        if (this.playing) {
-          this.flvPlayer.pause();
-        } else {
-          this.flvPlayer.play();
-        }
-        this.playing = !this.playing;
-      } else {
-        alert("操作失败");
-      }
-    },
+    // swith() {
+    //   if (this.flvPlayer) {
+    //     if (this.playing) {
+    //       this.flvPlayer.pause();
+    //     } else {
+    //       this.flvPlayer.play().then(() => {
+            
+    //       });
+    //     }
+    //     this.playing = !this.playing;
+    //   } else {
+    //     alert("操作失败");
+    //   }
+    // },
   },
   mounted() {
     this.$EventBus.$on("select", (room) => {
