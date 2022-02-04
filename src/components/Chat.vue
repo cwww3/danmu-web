@@ -8,6 +8,7 @@
 <script>
 import History from "./History.vue";
 import Talk from "./Talk.vue";
+import PubSub from "pubsub-js";
 
 export default {
   name: "Chat",
@@ -15,8 +16,8 @@ export default {
   props: ["room"],
   data() {
     return {
-      ws: null
-    }
+      ws: null,
+    };
   },
   methods: {
     //进入页面创建websocket连接
@@ -28,7 +29,7 @@ export default {
         this.ws.onopen = function (e) {
           console.log("服务器连接成功", e);
         };
-       this.ws.onclose = function (e) {
+        this.ws.onclose = function (e) {
           console.log("服务器连接关闭", e);
         };
         this.ws.onerror = function () {
@@ -37,7 +38,7 @@ export default {
         this.ws.onmessage = function (e) {
           //接收服务器返回的数据
           let msg = JSON.parse(e.data);
-          this.$EventBus.$emit("addMsg", msg);
+          PubSub.publish("addMsg", msg);
         };
       }
     },
@@ -50,7 +51,7 @@ export default {
     });
   },
   beforeDestroy() {
-    this.ws.close()
-  }
+    this.ws.close();
+  },
 };
 </script>

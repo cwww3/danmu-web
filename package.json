@@ -11,7 +11,9 @@
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
     "flv.js": "^1.6.2",
+    "pubsub-js": "^1.9.4",
     "vue": "^2.6.11",
+    "vue-baberrage": "^3.2.4",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"
   },

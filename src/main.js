@@ -6,6 +6,8 @@ import store from "./store"
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
+import { vueBaberrage } from 'vue-baberrage'
+Vue.use(vueBaberrage)
 
 // 注册事件总线
 Vue.prototype.$EventBus = new Vue()
