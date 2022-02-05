@@ -50,12 +50,7 @@ export default {
   methods: {
     //创建flv视频实例
     createFlv(room) {
-      let url = "http://110.42.134.163/live?app=cwww3&stream=test";
-      if (room === "default") {
-        url = "http://110.42.134.163/live?app=cwww3&stream=test";
-      } else {
-        url = "";
-      }
+      let url = "http://110.42.134.163/live?app=cwww3&stream="+room;
       if (flvjs.isSupported()) {
         let videoElement = document.getElementById("videoElement");
         this.flvPlayer = flvjs.createPlayer({
