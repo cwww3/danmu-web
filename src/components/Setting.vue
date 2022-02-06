@@ -8,9 +8,10 @@
       <span>房间名:{{ this.room.name }}</span>
       <button v-if="!this.on" @click="open">开启直播</button>
       <button v-if="this.on" @click="close">关闭直播</button>
-     
-     
-      <span v-if="this.on">推流地址:{{ this.room.url }} 推流秘钥:{{this.room.name}}</span>
+
+      <span v-if="this.on"
+        >推流地址:{{ this.room.url }} 推流秘钥:{{ this.room.name }}</span
+      >
     </div>
   </div>
 </template>
@@ -42,6 +43,8 @@ export default {
         .then((response) => {
           if (response.status === 200 && response.data.code === "00000") {
             this.room = response.data.data;
+          } else {
+            alert("创建失败");
           }
         });
     },
